@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Sale {
+  id           Int      @id @default(autoincrement())
+  productName  String   @map("product_name") @db.VarChar(255)
+  category     String   @db.VarChar(100)
+  quantity     Int
+  price        Decimal  @db.Decimal(10, 2)
+  totalAmount  Decimal  @map("total_amount") @db.Decimal(10, 2)
+  saleDate     DateTime @map("sale_date") @db.Date
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("sales")
+}
